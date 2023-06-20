@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NAO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}"> 
+</head>
+<style>
+body {
+    background-image: linear-gradient(rgba(50, 48, 48, 0.5), rgba(50, 48, 48, 0.5));
+
+    background:url(/static/bg.jpeg) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
+<body >
+    <h1 class="heading">NAO Robot</h1>
+    <div class="box">
+    <h2 class="newpage">Movement</h2>
+    <button class="button" onclick="move('front')">Move Forward</button>
+    <button class="button" onclick="move('left')">Turn  Left</button>
+    <button class="button" onclick="move('right')">Turn Right</button>
+    <button class="button"onclick="move('back')">Move Backward</button>
+    
+
+    <h2 class="newpage">Actions</h2>
+    <button class="button" onclick="action('turn')">Turn</button>
+    <button class="button" onclick="action('sit')">Sit</button>
+    <button class="button" onclick="action('stand')">Stand</button>
+    <button class="button" onclick="action('greet')">Greet</button>
+    <button class="button" onclick="action('fist')">Fist</button>
+    <button class="button" onclick="action('dance')">Dance</button>
+
+    <h2 class="newpage">Camera</h2>
+    <button class="button"onclick="action('live_feed')">Live Feed</button>
+
+    <h2 class="newpage">Speech</h2>
+    <input type="text" class="textbox" id="sentence" placeholder="Enter a sentence">
+    <button class="button"onclick="speak()">Enter</button>
+
+    <h2 class="newpage">API</h2>
+    <button class="button"onclick="action('fact')">Fact</button>
+    <button class="button"onclick="action('joke')">Joke</button>
+
+    <h2 class="newpage">Listening</h2>
+    <button class="button"onclick="listen()">Listen</button><br><br>
+
+    <h2 class="gesture">Gesture Recognition</h2>
+    <button class="button"onclick="gr()">Gesture</button><br><br>
+</div>
+<br><br><br>
+<!-- The script is used so that the webpage sends a request to the flask app when a button is clicked -->
+    <script>
+        function sendRequest(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.send();
+        }
+
+        function move(direction) {
+            sendRequest("/move?direction=" + direction);
+        }
+
+        function action(action) {
+            sendRequest("/" + action);
+        }
+        function action(gr) {
+            sendRequest("/" + gr);
+        }
+
+        function speak() {
+            var sentence = document.getElementById('sentence').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/speak", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("sentence=" + encodeURIComponent(sentence));
+        }
+
+        function listen() {
+            sendRequest("/listen");
+        }
+    </script>
+</body>
+</html>
