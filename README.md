@@ -10,8 +10,8 @@ Interaction by building a web application that
 allows remove monitoring and control of the 
 robot.
 <h2><u>HOW TO RUN THIS PROJECT</u></h2>
-1)Connect to the NAO Robot in the same network.
-2)Get the Ip from NAO and update in the code
+1)Connect to the NAO Robot in the same network.<br>
+2)Get the Ip from NAO and update in the code<br>
 3)Run the Flask App.
 <h2><u>Web-App</u></h2>
 
